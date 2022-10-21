@@ -1,3 +1,5 @@
+'use strict';
+
 /* eslint-disable eol-last */
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
@@ -8,6 +10,13 @@ const MESSAGING_SCOPE = 'https://www.googleapis.com/auth/firebase.messaging';
 const SCOPES = [MESSAGING_SCOPE];
 
 admin.initializeApp();
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  next();
+});
 
 // End-point que recebe a requisição e chama o metodo de gerar token
 app.get('/fcm-oauth-token', function(request, response) {
